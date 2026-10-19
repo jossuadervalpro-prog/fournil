@@ -1,11 +1,7 @@
 ﻿using Fournil.App.Models;
 using Fournil.App.Services;
 
-List<Produit> produits = new List<Produit>();
-produits.Add(new Produit(1, "Baguette", 1.20m, 30, "Pain"));
-produits.Add(new Produit(2, "Pain campagne", 3.20m, 20, "Pain"));
-produits.Add(new Produit(3, "Croissant", 1.80m, 60, "Viennoiserie"));
-produits.Add(new Produit(4, "Tarte aux fraises", 19.99m, 5, "Pâtisserie"));
+List<Produit> produits = StockageJson.Charger("produits.json");
 
 List<string> categoriesAutorisees = new List<string> { "Pain", "Viennoiserie", "Pâtisserie" };
 
@@ -47,7 +43,7 @@ do
             int id = Catalogue.ProchainId(produits);
 
             produits.Add(new Produit(id, nom, prix, stock, categorie));
-
+            StockageJson.Sauvegarder(produits, "produits.json");
             Console.WriteLine($"Produit « {nom} » ajouté avec l'Id {id} !");
             break;
 
